@@ -6,6 +6,7 @@
 // 4. Display the list of `zombieFighters` by mapping the array into the UI of `App.jsx`
 // 5. Display the current value of `money` in the UI
 
+
 import { useState } from 'react'; // imports the `useState()` hook from react
 import './App.css';
 
@@ -97,6 +98,10 @@ const App = () => {
     },
   ]);
 
+  const handleAddFighter = (fighter) => {
+    console.log('add figher: ', fighter);
+  }
+
   //*********************************** JSX THAT GETS RENDERED TO THE SCREEN **************************/
 
   return (
@@ -106,13 +111,13 @@ const App = () => {
       <h2>Money: {money}</h2>               {/*Displays the current value of `money` */}
       <ul>
         {zombieFighters.map((fighter) => (  // uses map to iterate over the `zombieFighters` array
-          <li>
+          <li key={fighter.id}>             {/* added key for identification */}
             <img src={fighter.img} alt={fighter.name} />
             <h3>{fighter.name}</h3>
             <p>Price: {fighter.price}</p>
             <p>Strength: {fighter.strength}</p>
             <p>Agility: {fighter.agility}</p>
-            <button type="submit">Add</button>
+            <button onClick={() => handleAddFighter(fighter)}>Add</button> {/* connects `handleAddFighter` function to button */}
 
           </li>
         ))}

@@ -4,6 +4,7 @@
 // 2. Create a new state variable named `money` and set the initial state to `100`
 // 3. Create a new state variable named `zombieFighters` and set the initial state to the given array of objects of 'fighters'
 // 4. Display the list of `zombieFighters` by mapping the array into the UI of `App.jsx`
+// 5. Display the current value of `money` in the UI
 
 import { useState } from 'react'; // imports the `useState()` hook from react
 import './App.css';
@@ -20,7 +21,7 @@ const App = () => {
       price: 12,
       strength: 6,
       agility: 4,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/0c2d6b.png',
+      img: '/images/Rhythm Guitar.png',
     },
     {
       id: 2,
@@ -28,7 +29,7 @@ const App = () => {
       price: 10,
       strength: 5,
       agility: 5,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/033a16.png',
+      img: '/images/Roadie.png',
     },
     {
       id: 3,
@@ -36,7 +37,7 @@ const App = () => {
       price: 18,
       strength: 7,
       agility: 8,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/262c36.png',
+      img: '/images/Conga.png',
     },
     {
       id: 4,
@@ -44,7 +45,7 @@ const App = () => {
       price: 14,
       strength: 7,
       agility: 6,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/3c1e70.png',
+      img: '/images/Drummer.png',
     },
     {
       id: 5,
@@ -52,7 +53,7 @@ const App = () => {
       price: 20,
       strength: 6,
       agility: 8,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/4b2900.png',
+      img: '/images/Guitar.png',
     },
     {
       id: 6,
@@ -60,7 +61,7 @@ const App = () => {
       price: 15,
       strength: 5,
       agility: 7,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/5a1e02.png',
+      img: '/images/Medic Backup Singer.png',
     },
     {
       id: 7,
@@ -68,7 +69,7 @@ const App = () => {
       price: 16,
       strength: 6,
       agility: 5,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/5e103e.png',
+      img: '/images/Engineer.png',
     },
     {
       id: 8,
@@ -76,7 +77,7 @@ const App = () => {
       price: 11,
       strength: 8,
       agility: 3,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/67060c.png',
+      img: '/images/Bass.png',
     },
     {
       id: 9,
@@ -84,7 +85,7 @@ const App = () => {
       price: 17,
       strength: 5,
       agility: 9,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/ac3220.png',
+      img: '/images/Keys.png',
     },
     {
       id: 10,
@@ -92,7 +93,7 @@ const App = () => {
       price: 22,
       strength: 7,
       agility: 6,
-      img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/e41f26.png',
+      img: '/images/Lead.png',
     },
   ]);
 
@@ -102,6 +103,7 @@ const App = () => {
     <>
 
       <h1>Zombie Fighters</h1>
+      <h2>Money: {money}</h2>               {/*Displays the current value of `money` */}
       <ul>
         {zombieFighters.map((fighter) => (  // uses map to iterate over the `zombieFighters` array
           <li>

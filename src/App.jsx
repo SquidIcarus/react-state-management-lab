@@ -5,6 +5,9 @@
 // 3. Create a new state variable named `zombieFighters` and set the initial state to the given array of objects of 'fighters'
 // 4. Display the list of `zombieFighters` by mapping the array into the UI of `App.jsx`
 // 5. Display the current value of `money` in the UI
+// 6a. Create function named `handleAddFighter()`
+// 6b. this function should add the selected character's object to the existing team state array.
+// 6c. remove the character from the `zombieFighters` state so they can't be added again
 
 
 import { useState } from 'react'; // imports the `useState()` hook from react
@@ -13,9 +16,9 @@ import './App.css';
 // ************************** DEFINING THE APP COMPONENT ************************************* //
 
 const App = () => {
-  const [team, setTeam] = useState([]); // Step 1. `team` is the state variable, `setTeam` is the setter function, `useState` is set with an empty array
-  const [money, setMoney] = useState(100); // Step 2. `money` = state variable, `setMoney` = setter function, initial state set to `100`
-  const [zombieFighters, setZombieFighters] = useState([  // Step 3. the list of 'fighters' is the argument passed to the `useState()` hook.
+  const [team, setTeam] = useState([]); // STEP 1. `team` is the state variable, `setTeam` is the setter function, `useState` is set with an empty array
+  const [money, setMoney] = useState(100); // STEP 2. `money` = state variable, `setMoney` = setter function, initial state set to `100`
+  const [zombieFighters, setZombieFighters] = useState([  // STEP 3. the list of 'fighters' is the argument passed to the `useState()` hook.
     {
       id: 1,
       name: 'Survivor',
@@ -98,7 +101,9 @@ const App = () => {
     },
   ]);
 
-  const handleAddFighter = (fighter) => {
+  const handleAddFighter = (fighter) => {    // STEP 6a. `handleAddFighter` function accepts a fighter object as an argument
+    setTeam([...team, fighter]);             // STEP 6b. spreads the existing `team` array and adds the new fighter ** checked components logs added fighter
+    setZombieFighters(prevZombieFighters => prevZombieFighters.filter(zombieFighter => zombieFighter.id !== fighter.id)); // STEP 6c. uses `filter()` to create a new array after checking if the id matches the fighter added to the team, if 'no', excluede fighter from the new array 
     console.log('add figher: ', fighter);
   }
 
@@ -108,16 +113,16 @@ const App = () => {
     <>
 
       <h1>Zombie Fighters</h1>
-      <h2>Money: {money}</h2>               {/*Displays the current value of `money` */}
+      <h2>Money: {money}</h2>               {/* STEP 5. Displays the current value of `money` */}
       <ul>
-        {zombieFighters.map((fighter) => (  // uses map to iterate over the `zombieFighters` array
+        {zombieFighters.map((fighter) => (  // STEP 4. uses map to iterate over the `zombieFighters` array
           <li key={fighter.id}>             {/* added key for identification */}
             <img src={fighter.img} alt={fighter.name} />
             <h3>{fighter.name}</h3>
             <p>Price: {fighter.price}</p>
             <p>Strength: {fighter.strength}</p>
             <p>Agility: {fighter.agility}</p>
-            <button onClick={() => handleAddFighter(fighter)}>Add</button> {/* connects `handleAddFighter` function to button */}
+            <button onClick={() => handleAddFighter(fighter)}>Add</button> {/* STEP 6. connects `handleAddFighter` function to button */}
 
           </li>
         ))}

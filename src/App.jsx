@@ -10,6 +10,8 @@
 // 6c. remove the character from the `zombieFighters` state so they can't be added again
 // 6d. Upon adding a character to your team, subtract the character's `price` from your current `money` value.
 // 6e. Check `money` state for enough money to afford a character's price to add, otherwise log, `Not enough money`
+// 7a. Verify team array characters. If `team` arraay length is 0, display `Pick some team menters!` in the UI
+// 7b. If characters in team, display each one in the UI.
 
 
 import { useState } from 'react'; // imports the `useState()` hook from react
@@ -120,7 +122,26 @@ const App = () => {
     <>
 
       <h1>Zombie Fighters</h1>
-      <h2>Money: {money}</h2>               {/* STEP 5. Displays the current value of `money` */}
+      <h4>Money: {money}</h4>               {/* STEP 5. Displays the current value of `money` */}
+      {team.length === 0 ? (                // STEP 7a. check if there are `0` team members
+        <p>Pick some band members!</p>      // will disply if `0` team members
+      ) : (
+        <>
+          <h2>Your band of Zombie Fighters: {team.length}</h2> {/* header tag for team with team member count */}
+          <ul>
+            {team.map((fighter) => (         // STEP 7b. displays `team` state when fighter is added
+              <li key={fighter.id}>
+                <img src={fighter.img} alt={fighter.name} />
+                <h3>{fighter.name}</h3>
+                <p>Price: {fighter.price}</p>
+                <p>Strength: {fighter.strength}</p>
+                <p>Agility: {fighter.agility}</p>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      <h2>The Lineup:</h2>
       <ul>
         {zombieFighters.map((fighter) => (  // STEP 4. uses map to iterate over the `zombieFighters` array
           <li key={fighter.id}>             {/* added key for identification */}

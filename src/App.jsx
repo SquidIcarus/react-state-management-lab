@@ -16,6 +16,11 @@
 // STEP 8b. Show value of `totalStrength` in the UI
 // STEP 9a. Calculate the total agility of all characters currently on the team and assign it to variable `totalStrength`
 // STEP 9b. Show value of `totalAgility` in the UI
+// STEP 10. Add a 'Remove' button to each character on team. 
+// STEP 11a. Create function named `handleRemoveFighters()`
+// STEP 11b. determine which character needs to be removed based on user interaction, once removed `team` state should update to exclude character.
+// STEP 11c. character removed from `team` state should be added to the `zombieFighters` array
+// STEP 11d. Increase the `money` state by the price of the removed character (refund your character)
 
 
 import { useState } from 'react'; // imports the `useState()` hook from react
@@ -126,6 +131,15 @@ const App = () => {
     }
   };
 
+  const handleRemoveFighter = (fighter) => {          // STEP 11b. handler function to remove fighter, accepts `fighter` as an argument
+    setTeam(prevTeam => prevTeam.filter(zombieFighter => zombieFighter.id !== fighter.id));
+    // ^ STEP 11b. ^ `prevTeam.filter...` creates a new array that filters out the removed fighter. New array used to set `team` state with `setTeam()`
+    setZombieFighters([...zombieFighters, fighter]);  // STEP 11c. adds removed fighter back to `zombieFighters` state
+    setMoney(money + fighter.price);                  // STEP 11d. refunds the price of fighter back to `money` state
+
+  }
+
+
   //*********************************** JSX THAT GETS RENDERED TO THE SCREEN **************************/
 
   return (
@@ -145,6 +159,7 @@ const App = () => {
                 <p>Price: {fighter.price}</p>
                 <p>Strength: {fighter.strength}</p>
                 <p>Agility: {fighter.agility}</p>
+                <button onClick={() => handleRemoveFighter(fighter)}>Remove</button> {/* STEP 10. remove button calls `handleRemoveFighter` handler function */}
               </li>
             ))}
           </ul>
@@ -154,7 +169,7 @@ const App = () => {
       <h4>Money: {money}</h4>               {/* STEP 5. Displays the current value of `money` */}
       <h4>Band Strength: {totalStrength}</h4> {/* STEP 8b. displays total strength of all team fighters */}
       <h4>Band Agility: {totalAgility}</h4> {/* STEP 9b. displays total agility of all team fighters */}
-      
+
       <h2>The Lineup:</h2>
       <ul>
         {zombieFighters.map((fighter) => (  // STEP 4. uses map to iterate over the `zombieFighters` array

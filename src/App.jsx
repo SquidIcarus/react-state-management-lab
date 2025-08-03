@@ -8,6 +8,8 @@
 // 6a. Create function named `handleAddFighter()`
 // 6b. this function should add the selected character's object to the existing team state array.
 // 6c. remove the character from the `zombieFighters` state so they can't be added again
+// 6d. Upon adding a character to your team, subtract the character's `price` from your current `money` value.
+// 6e. Check `money` state for enough money to afford a character's price to add, otherwise log, `Not enough money`
 
 
 import { useState } from 'react'; // imports the `useState()` hook from react
@@ -102,10 +104,15 @@ const App = () => {
   ]);
 
   const handleAddFighter = (fighter) => {    // STEP 6a. `handleAddFighter` function accepts a fighter object as an argument
-    setTeam([...team, fighter]);             // STEP 6b. spreads the existing `team` array and adds the new fighter ** checked components logs added fighter
-    setZombieFighters(prevZombieFighters => prevZombieFighters.filter(zombieFighter => zombieFighter.id !== fighter.id)); // STEP 6c. uses `filter()` to create a new array after checking if the id matches the fighter added to the team, if 'no', excluede fighter from the new array 
-    console.log('add figher: ', fighter);
-  }
+    if (money >= fighter.price) {             // STEP 6e. If `money` state is greater or equal to fighter's price, then execute...
+      setTeam([...team, fighter]);             // STEP 6b. spreads the existing `team` array and adds the new fighter ** checked components logs added fighter
+      setZombieFighters(prevZombieFighters => prevZombieFighters.filter(zombieFighter => zombieFighter.id !== fighter.id)); // STEP 6c. uses `filter()` to create a new array after checking if the id matches the fighter added to the team, if 'no', excluede fighter from the new array 
+      setMoney(money - fighter.price);         // STEP 6d. subtracts the fighters price from current money and updates the money state
+      console.log('add figher: ', fighter);
+    } else {                                   // STEP 6e. If `money` state !== fighter's price, then log...
+      console.log('Not enough money!');
+    }
+  };
 
   //*********************************** JSX THAT GETS RENDERED TO THE SCREEN **************************/
 

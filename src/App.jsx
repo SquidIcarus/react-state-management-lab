@@ -1,17 +1,21 @@
 // First Import the 'useState()' hook from React
 // EXERCISE
-// 1. Create a new state variable named `team` and set the initial state to an empty array []
-// 2. Create a new state variable named `money` and set the initial state to `100`
-// 3. Create a new state variable named `zombieFighters` and set the initial state to the given array of objects of 'fighters'
-// 4. Display the list of `zombieFighters` by mapping the array into the UI of `App.jsx`
-// 5. Display the current value of `money` in the UI
-// 6a. Create function named `handleAddFighter()`
-// 6b. this function should add the selected character's object to the existing team state array.
-// 6c. remove the character from the `zombieFighters` state so they can't be added again
-// 6d. Upon adding a character to your team, subtract the character's `price` from your current `money` value.
-// 6e. Check `money` state for enough money to afford a character's price to add, otherwise log, `Not enough money`
-// 7a. Verify team array characters. If `team` arraay length is 0, display `Pick some team menters!` in the UI
-// 7b. If characters in team, display each one in the UI.
+// STEP 1. Create a new state variable named `team` and set the initial state to an empty array []
+// STEP 2. Create a new state variable named `money` and set the initial state to `100`
+// STEP 3. Create a new state variable named `zombieFighters` and set the initial state to the given array of objects of 'fighters'
+// STEP 4. Display the list of `zombieFighters` by mapping the array into the UI of `App.jsx`
+// STEP 5. Display the current value of `money` in the UI
+// STEP 6a. Create function named `handleAddFighter()`
+// STEP 6b. this function should add the selected character's object to the existing team state array.
+// STEP 6c. remove the character from the `zombieFighters` state so they can't be added again
+// STEP 6d. Upon adding a character to your team, subtract the character's `price` from your current `money` value.
+// STEP 6e. Check `money` state for enough money to afford a character's price to add, otherwise log, `Not enough money`
+// STEP 7a. Verify team array characters. If `team` arraay length is 0, display `Pick some team menters!` in the UI
+// STEP 7b. If characters in team, display each one in the UI.
+// STEP 8a. Calculate the total strength of all characters currently on the team and assign it to variable `totalStrength`
+// STEP 8b. Show value of `totalStrength` in the UI
+// STEP 9a. Calculate the total agility of all characters currently on the team and assign it to variable `totalStrength`
+// STEP 9b. Show value of `totalAgility` in the UI
 
 
 import { useState } from 'react'; // imports the `useState()` hook from react
@@ -105,6 +109,12 @@ const App = () => {
     },
   ]);
 
+  // STEP 8a. `team.map` creates array of strength value. `.reduce(total, strength) => ...` adds strength values.  
+  const totalStrength = team.map(fighter => fighter.strength).reduce((total, strength) => total + strength, 0); // `total` is running sum, `strength` is each strength value, `0` is starting value
+  // console.log(totalStrength);
+
+  const totalAgility = team.map(fighter => fighter.agility).reduce((total, agility) => total + agility, 0); // STEP 9a. same concept as STEP 8a. but for agility 
+
   const handleAddFighter = (fighter) => {    // STEP 6a. `handleAddFighter` function accepts a fighter object as an argument
     if (money >= fighter.price) {             // STEP 6e. If `money` state is greater or equal to fighter's price, then execute...
       setTeam([...team, fighter]);             // STEP 6b. spreads the existing `team` array and adds the new fighter ** checked components logs added fighter
@@ -122,7 +132,6 @@ const App = () => {
     <>
 
       <h1>Zombie Fighters</h1>
-      <h4>Money: {money}</h4>               {/* STEP 5. Displays the current value of `money` */}
       {team.length === 0 ? (                // STEP 7a. check if there are `0` team members
         <p>Pick some band members!</p>      // will disply if `0` team members
       ) : (
@@ -141,6 +150,11 @@ const App = () => {
           </ul>
         </>
       )}
+      <h2>Stats:</h2>
+      <h4>Money: {money}</h4>               {/* STEP 5. Displays the current value of `money` */}
+      <h4>Band Strength: {totalStrength}</h4> {/* STEP 8b. displays total strength of all team fighters */}
+      <h4>Band Agility: {totalAgility}</h4> {/* STEP 9b. displays total agility of all team fighters */}
+      
       <h2>The Lineup:</h2>
       <ul>
         {zombieFighters.map((fighter) => (  // STEP 4. uses map to iterate over the `zombieFighters` array
